@@ -12,20 +12,19 @@
     </div>
     <div class='collapse navbar-collapse' id='myNavbar'>
       <ul class='nav navbar-nav'>
-       <li><a class='active' href='/'>Home</a></li>
-       <li><a href='search.php'>Search</a></li>
+       <li><a class='active' href='main.php'>Home</a></li>
        <li><a href='create.php'>Create</a></li>
+       <li><a href='/api/info.html'>API</a></li>
       </ul>
     </div>
-  </div>
-  <div class='container'>
-    <form method='post'>
-      <div class='input-group'>
-        <input class='form-control' type='text' placeholder="Search" />
-        <div class='input-group-btn'>
-          <button class='btn btn-default'>?</button>
-        </div>
-      </div>
-    </form>
+    <div style='padding:8px;' class="dropdown">
+     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+       <i class='glyphicon glyphicon-user'><?php echo $email;?></i>
+     <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+       <li><a href="accinfo.php">account</a></li>
+       <li><a href="logout.php">logout</a></li>
+      </ul>
+    </div>
   </div>
 </nav>

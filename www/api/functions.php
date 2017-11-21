@@ -6,7 +6,7 @@ date_default_timezone_set('America/NewYork');
 # Conection /
 # Info      /
 #############
-$obj = json_decode(file_get_contents('../config/setup.json'));
+$obj = json_decode(file_get_contents('../../config/setup.json'));
 $servername = $obj[0]->dbname;
 $dbuser = $obj[0]->dbuser;
 $dbpass = $obj[0]->dbpass;
@@ -47,13 +47,6 @@ function create($data,$conn,$company){
 ############
 # Remove ///
 ############
-function delete($rec,$conn,$company){
- $sql="DELETE FROM `".$company."` WHERE record='".$rec."' ";
- if ($conn->query($sql) === TRUE) {
-   return 'Deleted';
- }
- $conn->close();
-}
 ####################
 # Check Accout   ///
 ####################
@@ -66,21 +59,10 @@ function check($username,$password,$conn){
 $conn->close();
 }
 ####################
-# Account Info
-####################
-function accinfo($email,$conn){
- $sql="SELECT * FROM `accounts` Where email = '".$email."'";
- $result = $conn->query($sql);
- if ($result->num_rows > 0) {
-   return $result->fetch_assoc();
- }
-$conn->close();
-}
-####################
 # Check Key
 ###################
 function check_api($api,$conn){
- $sql="SELECT api,company FROM `accounts` Where api = '".$api."'";
+ $sql="SELECT * FROM accounts Where api = '".$api."' ";
  $result = $conn->query($sql);
  if ($result->num_rows > 0) {
    return $result->fetch_assoc();

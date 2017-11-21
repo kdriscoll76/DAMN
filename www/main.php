@@ -9,39 +9,63 @@ $company = $_SESSION['company'];
 $page = 'Home';
 $now = time();
 $filename = basename($_SERVER['PHP_SELF']);
-require_once('header.html');
+require('header.html');
 $data = view($conn,$company);
+include_once("top_bar.php");
 ?>
-
-<div style='color:#FFFFFF;' class='text-center'>
- <h1><?php echo strtoupper($company);?></h1>
- <p>Time: <?php echo date("c");?></p>
-</div>
 <div style='padding-top:50px;' class='container'>
-<div class='row-fluid'>
-<?php
- foreach($data as $value){
- if($value['system'] != $system ){
- $epoch = strtotime($value['updated']);   
- if((($now - $epoch)/60 %60) <= 15 ){
-     $status = 'btn-success'; 
- }else{
-     $status = 'btn-warning';
- }
-   echo "<button class='widget btn $status btn-lg'><h2>".strtoupper($value['system'])."</h2>
-          CPU: ".round($value['cpu'])."%
-          <br/>
-          MEM: ".round($value['mem'])."%
-          <br/>
-          DISK: ".round($value['disk'])."%
-          <p>".date("H:i:s",$epoch)."</p>
-        </button>";
-  }
-   $system = $value['system'];
- }
-?>
+ <div class='panel panel-primary'>
+   <div class='panel-heading'>System Alerts</div>
+   <div class='panel-body table-responsive'>
+    <table id='mytable1' class='table'>
+      <thead>
+        <tr>
+          <th>Admin</th>
+          <?php
+            foreach( array_keys( $data[0]) as $colum){
+             if($colum != 'created_by'){
+              echo"<th>".strtoupper($colum)."</th>";
+             }
+            }
+          ?>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach($data as $key => $value ){
+          echo"<tr><td><a href='delete.php?record=".$value['record']."'>Delete</a></td>";
+           unset($value['created_by']);
+           foreach( $value as $field){
+            echo"<td>$field</td>";
+          }
+          echo"</tr>";
+        }
+         ?>
+      </tbody>
+    </table>
+   </div>
+ </div>
 </div>
+<div style='padding-top:10px;' class='container'>
+ <div class='panel panel-primary'>
+   <div class='panel-heading'>My Dashboards</div>
+   <div class='panel-body table-responsive'>
+    <table id='mytable2' class='table'>
+      <thead>
+        <tr>
+          <th>DASH</th><th>DESCRIPTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href='spg.php'>SPG</a></td><td>This is a single pane of glass overview.</td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+ </div>
 </div>
+<!-- footer -->
 <?php
  include('footer.php');
 ?>
