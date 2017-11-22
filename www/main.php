@@ -20,24 +20,19 @@ include_once("top_bar.php");
     <table id='mytable1' class='table'>
       <thead>
         <tr>
-          <th>Admin</th>
-          <?php
-            foreach( array_keys( $data[0]) as $colum){
-             if($colum != 'created_by'){
-              echo"<th>".strtoupper($colum)."</th>";
-             }
-            }
-          ?>
+          <th></th>
+          <th>RECORD</th>
+          <th>SYSTEMNAME</th>
+          <th>MESSAGE</th>
         </tr>
       </thead>
       <tbody>
         <?php
         foreach($data as $key => $value ){
-          echo"<tr><td><a href='delete.php?record=".$value['record']."'>Delete</a></td>";
-           unset($value['created_by']);
-           foreach( $value as $field){
-            echo"<td>$field</td>";
-          }
+          echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Info</a></td>";
+          echo"<td>".$value['record']."</td>";
+          echo"<td>".$value['systemname']."</td>";
+          echo"<td>".$value['message']."</td>";
           echo"</tr>";
         }
          ?>

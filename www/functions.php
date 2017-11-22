@@ -45,6 +45,18 @@ function create($data,$conn,$company,$organisation){
  $conn->close();
 }
 ############
+# Search ///
+############
+function info($conn,$company,$record){
+ $sql="SELECT * FROM alerts WHERE company='".$company."' AND record='".$record."'";
+ $result = $conn->query($sql);
+ if ($result->num_rows > 0) {
+   $row = $result->fetch_assoc();
+   return $row;
+ }
+ $conn->close();
+}
+############
 # Remove ///
 ############
 function delete($rec,$conn,$company){

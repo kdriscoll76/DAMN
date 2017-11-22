@@ -1,0 +1,15 @@
+<html>
+<body>
+ <div>
+   <h3>Send In Alerts</h3>
+   <u>LINUX:</u>
+   <p wrap>
+    #curl -X GET -H "Accept: application/json" --data '{"api":"&lt;api-key&gt","systemname":"system2","message":"critical alert test"}' http://kjdtoolbox.kjdhosting.com/api
+   </p>
+   <u>WINDOWS:</u>
+   <p wrap>
+     Invoke-WebRequest -UseBasicParsing http://kjdtoolbox.kjdhosting.com/api -ContentType "application/json" -Method GET -Body "{"api":"&lt;api-key&gt","systemname":"system2","message":"critical alert test"}"
+   </p>
+ </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <?php
  include_once("functions.php");
-  $json = urldecode($_GET['json']);
-  $data = json_decode($json,true);
+  //$json = urldecode($_GET['json']);
+  $data = json_decode(file_get_contents("php://input"),true);
   $api = $data['api'];
   $key_check = check_api($api,$conn);
   if(isset($key_check)){

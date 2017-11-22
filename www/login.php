@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once('functions.php');
 // - Login Info
@@ -12,7 +12,8 @@ if(isset($field)){
  $_SESSION['organisation'] = $field['organisation'];
  header("location:main.php");
  }else{
-   header("location:/?error=1");
+   echo '<script>window.location.href = "main.php";</script>';
+   exit();
  }
 unset($_POST);
 unset($field);

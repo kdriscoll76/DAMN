@@ -2,8 +2,6 @@
 session_start();
 session_unset();
 session_destroy();
-ob_start();
-header("location:/");
-ob_end_flush();
+echo '<script>window.location.href = "index.php";</script>';
 exit();
 ?>
