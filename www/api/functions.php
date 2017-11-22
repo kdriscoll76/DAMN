@@ -38,7 +38,7 @@ function view($conn,$company){
 function create($data,$conn,$company,$organisation){
  extract($data);
  $values = "'$systemname','$company','$organisation','$message','$created_by'";
- $columns = 'systemname,company,organisation,massage,created_by';
+ $columns = 'systemname,company,organisation,message,created_by';
  $sql="INSERT INTO alerts ($columns) VALUES ($values)";
  $result = $conn->query($sql);
  return $result;

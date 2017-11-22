@@ -48,7 +48,7 @@ function create($data,$conn,$company,$organisation){
 # Remove ///
 ############
 function delete($rec,$conn,$company){
- $sql="DELETE FROM `".$company."` WHERE record='".$rec."' ";
+ $sql="DELETE FROM alerts WHERE company='".$company."' AND record='".$rec."' ";
  if ($conn->query($sql) === TRUE) {
    return 'Deleted';
  }
