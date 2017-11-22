@@ -1,11 +1,15 @@
 <?php
  include_once("functions.php");
-  $obj = json_decode($_GET['json'],ture);
-  $api = $obj['api'];
+  $data = json_decode($_GET['json'],ture);
+  $api = $data['api'];
   $key_check = check_api($api,$conn);
   if(isset($key_check)){
    $company = $key_check['company'];
-   create($obj,$conn,$company);
+   $organisation = $key_check['organisation'];
+   unset($data['api']);
+   $data['created_by'] = $api;
+   create($data,$conn,$company,$organisation);
+   echo "Alert Added";
   }else{
    echo "Invalid Key";
   }

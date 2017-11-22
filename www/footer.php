@@ -9,5 +9,8 @@
    $("table.table").DataTable({
      "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
    });
+  $('tr:contains("warn"),tr:contains("warning"),tr:contains("error")').css("background-color","yellow");
+  $('tr:contains("major")').css("background-color","orange");
+  $('tr:contains("critical")').css("background-color","red");
  });
 </script>

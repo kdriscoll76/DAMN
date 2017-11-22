@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 # View   ///
 ############
 function view($conn,$company){
- $sql="SELECT * FROM `".$company."` ORDER BY `system`,`updated` DESC";
+ $sql="SELECT * FROM alerts WHERE company='".$company."' ORDER BY `systemname`,`timestamp` DESC";
  $result = $conn->query($sql);
  if ($result->num_rows > 0) {
    while($row = $result->fetch_assoc()){
@@ -35,11 +35,11 @@ function view($conn,$company){
 ############
 # Create ///
 ############
-function create($data,$conn,$company){
+function create($data,$conn,$company,$organisation){
  extract($data);
- $values = "'$system','$cpu','$mem','$disk','$api'";
- $columns = 'system,cpu,mem,disk,created_by';
- $sql="INSERT INTO `".$company."` ($columns) VALUES ($values)";
+ $values = "'$systemname','$company','$organisation','$message','$created_by'";
+ $columns = 'systemname,company,organisation,massage,created_by';
+ $sql="INSERT INTO alerts ($columns) VALUES ($values)";
  $result = $conn->query($sql);
  return $result;
  $conn->close();
