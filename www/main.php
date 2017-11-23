@@ -1,7 +1,8 @@
 <?php
 session_start();
 if(empty($_SESSION['email'])){
- header("location:index.php");
+  echo '<script>window.location.href = "index.php";</script>';
+  exit();
 };
 include_once('functions.php');
 $email = $_SESSION['email'];
@@ -15,13 +16,12 @@ include_once("top_bar.php");
 ?>
 <div style='padding-top:50px;' class='container'>
  <div class='panel panel-primary'>
-   <div class='panel-heading'>System Alerts</div>
+   <div class='panel-heading'>Alerts</div>
    <div class='panel-body table-responsive'>
     <table id='mytable1' class='table'>
       <thead>
         <tr>
           <th></th>
-          <th>RECORD</th>
           <th>SYSTEMNAME</th>
           <th>MESSAGE</th>
         </tr>
@@ -30,7 +30,6 @@ include_once("top_bar.php");
         <?php
         foreach($data as $key => $value ){
           echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Info</a></td>";
-          echo"<td>".$value['record']."</td>";
           echo"<td>".$value['systemname']."</td>";
           echo"<td>".$value['message']."</td>";
           echo"</tr>";
@@ -43,7 +42,10 @@ include_once("top_bar.php");
 </div>
 <div style='padding-top:10px;' class='container'>
  <div class='panel panel-primary'>
-   <div class='panel-heading'>My Dashboards</div>
+   <div class='panel-heading'>
+     <div class='panel-title'>Dashboards</div>
+     <a class='btn btn-info' href='new_dash.php'>New Dash</a>
+   </div>
    <div class='panel-body table-responsive'>
     <table id='mytable2' class='table'>
       <thead>
@@ -52,9 +54,13 @@ include_once("top_bar.php");
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><a href='spg.php'>SPG</a></td><td>This is a single pane of glass overview.</td>
-        </tr>
+        <?php
+          $dash = dashlist($conn,$company);
+          foreach($dash as $dashboard ){
+            $dashname = $dashboard['dashname'];
+            echo"<tr><td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td></td></tr>";
+          }
+        ?>
       </tbody>
     </table>
    </div>

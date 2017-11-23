@@ -33,6 +33,34 @@ function view($conn,$company){
  $conn->close();
 }
 ############
+# View Dashboards
+############
+function dashboards($conn,$company,$dashname){
+ $sql="SELECT * FROM dashboards WHERE company='".$company."' AND dashname='".$dashname."'";
+ $result = $conn->query($sql);
+ if ($result->num_rows > 0) {
+   while($row = $result->fetch_assoc()){
+    $rows[] = $row;
+   }
+   return $rows;
+ }
+ $conn->close();
+}
+############
+# Dashboard List
+############
+function dashlist($conn,$company){
+ $sql="SELECT * FROM dashboards WHERE company='".$company."'";
+ $result = $conn->query($sql);
+ if ($result->num_rows > 0) {
+   while($row = $result->fetch_assoc()){
+    $rows[] = $row;
+   }
+   return $rows;
+ }
+ $conn->close();
+}
+############
 # Create ///
 ############
 function create($data,$conn,$company,$organisation){
@@ -87,6 +115,15 @@ function accinfo($email,$conn){
    return $result->fetch_assoc();
  }
 $conn->close();
+}
+##############
+# Add Notes
+##############
+function update_note($rec,$conn,$notes){
+ $sql="UPDATE alerts SET `notes`='".$notes."' WHERE record='".$rec."'";
+ $result = $conn->query($sql);
+ return $result;
+ $conn->close();
 }
 ####################
 # Check Key

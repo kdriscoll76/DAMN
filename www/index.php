@@ -26,6 +26,7 @@
   <br/>
   <div>
    <button type='submit' class='btn btn-primary'>Login</button>
+   <a class='btn btn-info' href='request_acc.php'>Request Account</a>
   </div>
  </div>
 </form>

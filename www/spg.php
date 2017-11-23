@@ -1,7 +1,8 @@
 <?php
 session_start();
 if(empty($_SESSION['email'])){
- header("location:index.php");
+  echo '<script>window.location.href = "index.php";</script>';
+  exit();
 };
 include_once('functions.php');
 $email = $_SESSION['email'];
@@ -13,7 +14,10 @@ $filename = basename($_SERVER['PHP_SELF']);
 require_once('header.html');
 $data = view($conn,$company);
 ?>
-
+<head>
+<meta http-equiv="refresh" content="30">
+<title><?php echo $company;?>Dashboard</title>
+</head>
 <div style='color:#FFFFFF;' class='text-center'>
  <h1><?php echo strtoupper($company)." - ".strtoupper($organisation);?></h1>
  <p>Time: <?php echo date("c");?></p>
@@ -21,21 +25,47 @@ $data = view($conn,$company);
 <div style='padding-top:50px;' class='container'>
 <div class='row-fluid'>
 <?php
- foreach($data as $value){
- if($value['systemname'] != $system ){
- $epoch = strtotime($value['timestamp']);
- if((($now - $epoch)/60 %60) <= 15 ){
-     $status = 'btn-success';
+$dashname = 'overview';
+$dashdata = dashboards($conn,$company,$dashname);
+ for($c = 1;$c < 10;$c++){
+  $box = "box$c";
+  foreach( $dashdata as $json ){
+    $obj = json_decode($json[$box]);
+    $b = $obj->box;
+    $f = $obj->filter;
+    $filters[$b] = $f;
+ }
+}
+
+foreach($data as $value){
+ foreach($filters as $filter => $text ){
+  if( preg_match("/$text/i", $value[message])){
+    $$filter++;
+   }
+ }
+ $total++;
+};
+
+ $boxes['total'] = $total ?:0;
+
+foreach( $filters as $boxname => $text ){
+  $boxes[$boxname] = $$boxname ?:0;
+}
+
+foreach($boxes as $key => $value){
+ if($key == 'error'){
+   $status = 'btn-info';
+ }elseif($key == 'warning'){
+   $status = 'btn-warning';
+ }elseif($key == 'critical'){
+   $status = 'btn-danger';
  }else{
-     $status = 'btn-warning';
+   $status = 'btn-primary';
  }
-   echo "<button class='widget btn $status btn-lg'><h2>".strtoupper($value['systemname'])."</h2>
-          <p class='alert-text' style='font-size:0.5em'>".$value['message']."</p>
-          <p>".date("H:i:s",$epoch)."</p>
-        </button>";
-  }
-   $system = $value['system'];
- }
+echo "<button class='widget btn $status btn-lg'><h2>".strtoupper($key)."</h2>
+       <p style='font-size:2em;'>$value</p>
+     </button>";
+}
 ?>
 </div>
 </div>

@@ -8,7 +8,13 @@ if(empty($_SESSION['email'])){
 }
 $email = $_SESSION['email'];
 $company = $_SESSION['company'];
+$organisation = $_SESSION['organisation'];
 $record = $_GET['record'];
+if(isset($_POST['notes'])){
+  $notes = $_POST['notes'];
+  update_note($record,$conn,$notes);
+}
+$page = 'Alert Details';
 require_once('top_bar.php');
 $data = info($conn,$company,$record);
 ?>
@@ -23,19 +29,21 @@ $data = info($conn,$company,$record);
     <table class='table table-bordered'>
     <?php
      foreach($data as $key => $value){
-       $filter = '/created_by/';
+       $filter = '/created_by|notes/';
        if(!preg_match($filter,$key)){
         echo "<tr><td>".strtoupper($key)."</td><td>$value</td></tr>";
        }
      }
      ?>
+     <form method='post'>
      <tr>
      <td colspan='2'>NOTES:<br/>
-     <textarea style='width:100%;'></textarea></td>
+     <textarea name='notes' style='width:100%;' value='<?php echo $data['notes']; ?>'><?php echo $data['notes']; ?></textarea></td>
      </tr>
    </table>
    <button class='btn btn-success' type='submit'>Update</button>
-    <a class='btn btn-danger' href='#'>Delete</a>
+ </form>
+    <a class='btn btn-danger' href='delete.php?record=<?php echo $record;?>'>Delete</a>
   </div>
  </div>
 </div>

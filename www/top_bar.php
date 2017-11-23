@@ -13,8 +13,12 @@
     <div class='collapse navbar-collapse' id='myNavbar'>
       <ul class='nav navbar-nav'>
        <li><a class='active' href='main.php'>Home</a></li>
-       <li><a href='create.php'>Create</a></li>
        <li><a href='/api/info.html'>API</a></li>
+       <?php
+        if($_SESSION['role'] == 'admin'){
+       echo "<li><a href='admin.php'>Admin</a></li>";
+        }
+        ?>
       </ul>
     </div>
     <div style='padding:8px;' class="dropdown">
