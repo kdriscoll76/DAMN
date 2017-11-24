@@ -58,7 +58,7 @@ include_once("top_bar.php");
           $dash = dashlist($conn,$company);
           foreach($dash as $dashboard ){
             $dashname = $dashboard['dashname'];
-            echo"<tr><td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td></td></tr>";
+            echo"<tr><td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td>".$dashboard['description']."</td></tr>";
           }
         ?>
       </tbody>
