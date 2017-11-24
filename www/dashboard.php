@@ -24,7 +24,7 @@ $data = view($conn,$company);
  <p>Time: <?php echo date("c");?></p>
 </div>
 <div style='padding-top:50px;' class='container'>
-<div class='row-fluid'>
+<div class='row col-xs-12'>
 <?php
 $dashdata = dashboards($conn,$company,$dashname);
  for($c = 1;$c < 10;$c++){
