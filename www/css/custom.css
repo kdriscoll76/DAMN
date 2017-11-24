@@ -8,12 +8,9 @@ body{
  margin:4px;
  text-shadow: 2px 2px 4px #000000;
 }
-@-ms-viewport{
-  width: device-width;
-}
 @media (max-width: 768px) {
     .widget {
-        display: flex;
+        display: block;
         width:100%;
     }
 }
