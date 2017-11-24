@@ -8,3 +8,9 @@ body{
  margin:4px;
  text-shadow: 2px 2px 4px #000000;
 }
+
+@media screen and (min-width: 480px) {
+  .widget{
+    display:block;
+  }
+}
