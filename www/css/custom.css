@@ -5,12 +5,7 @@ body{
 }
 .widget{
  height:200px;
+ width:100%;
  margin:4px;
  text-shadow: 2px 2px 4px #000000;
-}
-@media (max-width: 768px) {
-    .widget {
-        display: block;
-        width:100%;
-    }
 }

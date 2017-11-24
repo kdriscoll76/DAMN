@@ -61,9 +61,9 @@ foreach($boxes as $key => $value){
  }else{
    $status = 'btn-primary';
  }
-echo "<button class='widget btn $status btn-lg col-xs-12 col-md-3 '><h2>".strtoupper($key)."</h2>
+echo "<span class='col-xs-12 col-md-3'><button class='widget btn $status btn-lg  '><h2>".strtoupper($key)."</h2>
        <p style='font-size:2em;'>$value</p>
-     </button>";
+     </button></span>";
  }
 }
 ?>
