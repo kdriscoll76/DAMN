@@ -12,5 +12,6 @@ body{
 @media screen and (min-width: 480px) {
   .widget{
     display:block;
+    width:100%;
   }
 }
