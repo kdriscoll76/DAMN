@@ -8,10 +8,6 @@ body{
  margin:4px;
  text-shadow: 2px 2px 4px #000000;
 }
-
-@media screen and (max-width: 300px) {
-  .widget{
-    display:block;
-    width:100%;
-  }
+@-ms-viewport{
+  width: device-width;
 }
