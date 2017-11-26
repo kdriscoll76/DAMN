@@ -44,6 +44,7 @@ $data = info($conn,$company,$record);
    <button class='btn btn-success' type='submit'>Update</button>
  </form>
     <a class='btn btn-danger' href='delete.php?record=<?php echo $record;?>'>Delete</a>
+    <a class='btn btn-info' href='main.php'>Cancel</a>
   </div>
  </div>
 </div>
