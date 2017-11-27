@@ -28,12 +28,16 @@ include_once("top_bar.php");
       </thead>
       <tbody>
         <?php
-        foreach($data as $key => $value ){
+        if(!empty($data)){
+         foreach($data as $key => $value ){
           echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Info</a></td>";
           echo"<td>".$value['systemname']."</td>";
           echo"<td>".$value['message']."</td>";
           echo"</tr>";
-        }
+         }
+       }else{
+         echo "<tr><td colspan='2'>NO DATA</td><tr>";
+       }
          ?>
       </tbody>
     </table>
@@ -55,11 +59,17 @@ include_once("top_bar.php");
       </thead>
       <tbody>
         <?php
-          $dash = dashlist($conn,$company);
+          if(!empty($data)){
+           $dash = dashlist($conn,$company);
+          }
+          if(!empty($dash)){
           foreach($dash as $dashboard ){
             $dashname = $dashboard['dashname'];
             echo"<tr><td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td>".$dashboard['description']."</td></tr>";
           }
+        }else{
+          echo "<tr><td colspan='2'>NO DATA</td><tr>";
+        }
         ?>
       </tbody>
     </table>

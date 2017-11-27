@@ -122,7 +122,6 @@ $conn->close();
 function update_note($rec,$conn,$notes){
  $sql="UPDATE `alerts` SET `notes`='".$notes."' WHERE record='".$rec."'";
  $result = $conn->query($sql);
- return $result;
  $conn->close();
 }
 ####################
@@ -149,8 +148,7 @@ function emailto($email,$subject,$body){
  $headers .= 'MIME-Version: 1.0' . "\r\n";
  $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
  // send email
- mail($email, $subject, $body, $headers);
- exit();
+ mail($email,$subject,$body,$headers);
 }
 #######################
 # New Account
@@ -158,20 +156,28 @@ function emailto($email,$subject,$body){
 function new_acc($email,$conn){
   list($user, $domain) = explode('@', $email);
   $org = str_replace('.com',"",$domain);
-  $pwd = md5( bin2hex(openssl_random_pseudo_bytes(6)));
+  $tmp = bin2hex(openssl_random_pseudo_bytes(6));
+  $pwd = md5($tmp);
   $api = bin2hex(openssl_random_pseudo_bytes(12));
   $values = "'$user','$pwd','$org','$email','$api'";
   $columns = 'username,password,company,email,api';
   $sql="INSERT INTO `accounts` ($columns) VALUES ($values)";
   $result = $conn->query($sql);
-  return $result;
+  if($result){
+   $subject = 'kjdtoolbox Account Request';
+   $body="<div>Welcome to kjdtoolbox,<p>Please see the TEMP password below and fallow the link to active your account.</p><h3>TEMP PASSWORD $tmp</h3><p>Link: http://kjdtoolbox.kjdhosting.com</p></div>";
+   emailto($email,$subject,$body);
+  }
+  unset($tmp);
+
   $conn->close();
-  $subject = 'kjdtoolbox Account Request';
-  $body="<div>Welcome to kjdtoolbox please fallow the link below to active your account.<p>Link: http://kjdtoolbox.kjdhosting.com/activate.php</p></div>";
-  emailto($email,$subject,$body);
 }
 ###########################
 # Account Update
 ###########################
-
+function update_acc($email,$pass,$conn){
+ $sql="UPDATE `accounts` SET `active`=1,`password`='".$pass."' WHERE email='".$email."'";
+ $result = $conn->query($sql);
+ $conn->close();
+}
 ?>
