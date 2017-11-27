@@ -120,7 +120,7 @@ $conn->close();
 # Add Notes
 ##############
 function update_note($rec,$conn,$notes){
- $sql="UPDATE alerts SET `notes`='".$notes."' WHERE record='".$rec."'";
+ $sql="UPDATE `alerts` SET `notes`='".$notes."' WHERE record='".$rec."'";
  $result = $conn->query($sql);
  return $result;
  $conn->close();
@@ -136,4 +136,42 @@ function check_api($api,$conn){
  }
 $conn->close();
 }
+
+#####################
+# Email
+#####################
+function emailto($email,$subject,$body){
+ // compose headers
+ $headers = "From: admin@kjdtoolbox.kjdhosting.com\r\n";
+ $headers .= "Reply-To: admin@kjdtoolbox.kjdhosting.com\r\n";
+ $headers .= "X-Mailer: PHP/".phpversion();
+ // To send HTML mail, the Content-type header must be set
+ $headers .= 'MIME-Version: 1.0' . "\r\n";
+ $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+ // send email
+ mail($email, $subject, $body, $headers);
+ exit();
+}
+#######################
+# New Account
+#######################
+function new_acc($email,$conn){
+  list($user, $domain) = explode('@', $email);
+  $org = str_replace('.com',"",$domain);
+  $pwd = md5( bin2hex(openssl_random_pseudo_bytes(6)));
+  $api = bin2hex(openssl_random_pseudo_bytes(12));
+  $values = "'$user','$pwd','$org','$email','$api'";
+  $columns = 'username,password,company,email,api';
+  $sql="INSERT INTO `accounts` ($columns) VALUES ($values)";
+  $result = $conn->query($sql);
+  return $result;
+  $conn->close();
+  $subject = 'kjdtoolbox Account Request';
+  $body="<div>Welcome to kjdtoolbox please fallow the link below to active your account.<p>Link: http://kjdtoolbox.kjdhosting.com/activate.php</p></div>";
+  emailto($email,$subject,$body);
+}
+###########################
+# Account Update
+###########################
+
 ?>
