@@ -33,8 +33,14 @@ if( $_POST['pass'][0] == $_POST['pass'][1]){
   echo"
    <tr><td>USERNAME</td><td>$username</td></tr>
    <tr><td>EMAIL</td><td>$email</td></tr>
-   <tr><td>PASSWORD</td><td><button id='change' type='button' class='btn btn-success' onclick='change()'>Change</button>
-   <div id='pass'>
+   <tr><td>PASSWORD</td>";
+
+   if(preg_match('/demo/',$email)){
+   echo "<td class='text-danger'>Demo Account Password can not be changed.</td>";
+   }else{
+   echo "<td><button id='change' type='button' class='btn btn-success'>Change</button>";
+   }
+   echo"<div id='pass'>
    <input class='form-control' type='password' name='pass[]' placeholder='New Password'/>
    <input class='form-control' type='password' name='pass[]' placeholder='Again'/>
 
@@ -48,16 +54,20 @@ if( $_POST['pass'][0] == $_POST['pass'][1]){
   ";
   ?>
 </table>
+<div id='save_button'>
   <button class='btn btn-danger'>Update</button>
   <a class='btn btn-info' href='main.php'>Cancel</a>
+</div>
 </form>
 </div>
 </div>
 </div>
 <script>
 $("#pass").hide();
+$("#save_button").hide();
 $("#change").click(function(){
   $("#pass").show();
+  $("#save_button").show();
   $("#change").hide();
  });
 </script>

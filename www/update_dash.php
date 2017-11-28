@@ -4,17 +4,26 @@ if(empty($_SESSION['email'])){
   echo '<script>window.location.href = "index.php";</script>';
   exit();
 };
-var_dump($_POST);
-echo "<hr/>";
+require_once('functions.php');
+$output = array(
+ 'dashname' => $_POST['dashname'],
+ 'description' => $_POST['description'],
+ 'company' => $_SESSION['company'],
+ 'organisation' => $_SESSION['organisation'],
+ 'created_by' => $_SESSION['username']
+);
+
 for($r=1;$r < 10;$r++){
  $boxid = "box".$r."_";
- $box = array(
+ if($_POST[$boxid][0] != null ){
+ $output["box$r"] = json_encode( array(
          'box' => $_POST[$boxid][0],
-         'filter' => $_POST[$boxid][1],
-       );
+         'filter' => str_replace(',','|',$_POST[$boxid][1])
+       ));
+  }
  };
- $dashname = $_POST['dashname'];
- $description = $_POST['description'];
- var_dump( json_encode($box) );
- echo "<hr/>";
+
+ create_dash($output,$conn,$company,$organisation);
+ echo '<script>window.location.href = "main.php";</script>';
+ exit();
  ?>

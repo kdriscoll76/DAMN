@@ -60,6 +60,24 @@ function dashlist($conn,$company){
  }
  $conn->close();
 }
+####################
+# Create Dashboard
+####################
+function create_dash($data,$conn,$company,$organisation){
+ extract($data);
+ foreach( array_values($data) as $value ){
+   $values[] = "'$value'";
+ }
+ $values = implode(",",$values);
+ $columns = implode(",",array_keys($data));
+ echo $values;
+ echo "<hr/>";
+ echo $columns;
+ $sql="INSERT INTO `dashboards` ($columns) VALUES ($values)";
+ $result = $conn->query($sql);
+ return $result;
+ $conn->close();
+}
 ############
 # Create ///
 ############

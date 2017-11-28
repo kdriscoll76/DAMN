@@ -1,14 +1,66 @@
 <html>
 <body>
  <div>
-   <h3>Send In Alerts</h3>
-   <u>LINUX:</u>
-   <p wrap>
-    #curl -X GET -H "Accept: application/json" --data '{"api":"&lt;api-key&gt","systemname":"system2","message":"critical alert test"}' http://kjdtoolbox.kjdhosting.com/api
-   </p>
-   <u>WINDOWS:</u>
-   <p wrap>
-     Invoke-WebRequest -UseBasicParsing http://kjdtoolbox.kjdhosting.com/api -ContentType "application/json" -Method GET -Body "{"api":"&lt;api-key&gt","systemname":"system2","message":"critical alert test"}"
+   <h1>Send In Alerts</h1>
+   <hr/>
+   <h2>LINUX:</h2>
+   <hr/>
+  <p>
+    <h4>CURL</h4>
+    <pre>
+   <i>
+   curl -X GET -H "Accept: application/json" \
+   --data '{"api":"&lt;api-key&gt","systemname":"'`hostname`'","message":"critical alert test"}' \
+   http://www.kjdtoolbox.kjdhosting.com/api
+  </i>
+  </pre>
+  </p>
+   <hr/>
+   <h2>WINDOWS:</h2>
+   <hr/>
+   <h4>POWERSHELL</h4>
+   <p>
+     <pre>
+    <b>
+    #########################################################
+    # Create a Powershell script below to upload alert to API.
+    #########################################################
+     - Name the file checkin.ps1
+
+    <b>
+    ##################################
+    # Copy code below into your file.
+    ##################################
+    </b>
+
+     <i>Invoke-WebRequest -UseBasicParsing http://www.kjdtoolbox.kjdhosting.com/api `
+       -ContentType "application/json" -Method GET -Body "{"api":"&lt;api-key&gt",`
+       "systemname":"system2","message":"critical alert test"}"
+     </i>
+
+    <b>
+    ################################################
+    # Edit above to match your monitoring profile.
+    #################################################
+    </b>
+    <i>
+       api = Your profiles API.
+       systemname = Your server name.
+       message = alert text plus keywords ( warning, error, critical )
+    </i>
+    <b>
+    #################################################
+    # If the script fails you may need to run below.
+    #################################################
+    Open CMD window, then goto the directory where your
+    script is stored, then run the script using the command below.
+    </b>
+
+    <i>
+      C: powershell -ExecutionPolicy ByPass -File .\checkin.ps1
+    </i>
+
+    </pre>
    </p>
  </div>
 </body>

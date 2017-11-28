@@ -8,6 +8,7 @@ $field = check($username,$password,$conn);
 if($field['active'] == 1 ){
  if(isset($field)){
   $_SESSION['email'] = $field['email'];
+  $_SESSION['username'] = $field['username'];
   $_SESSION['role'] = $field['role'];
   $_SESSION['company'] = $field['company'];
   $_SESSION['organisation'] = $field['organisation'];
@@ -21,6 +22,7 @@ if($field['active'] == 1 ){
   $_SESSION['email'] = $field['email'];
   $_SESSION['role'] = $field['role'];
   $_SESSION['company'] = $field['company'];
+  $_SESSION['username'] = $field['username'];
   $_SESSION['organisation'] = $field['organisation'];
   $_SESSION['active']  = 0;
   echo '<script>window.location.href = "accinfo.php";</script>';

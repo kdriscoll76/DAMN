@@ -13,6 +13,8 @@ $record = $_GET['record'];
 if(isset($_POST['notes'])){
   $notes = $_POST['notes'];
   update_note($record,$conn,$notes);
+  echo "<script>window.location.href = 'info.php?record=$record';</script>";
+  exit();
 }
 $page = 'Alert Details';
 require_once('top_bar.php');
