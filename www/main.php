@@ -30,7 +30,7 @@ include_once("top_bar.php");
         <?php
         if(!empty($data)){
          foreach($data as $key => $value ){
-          echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Info</a></td>";
+          echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Details</a></td>";
           echo"<td>".$value['systemname']."</td>";
           echo"<td>".$value['message']."</td>";
           echo"</tr>";
@@ -54,7 +54,7 @@ include_once("top_bar.php");
     <table id='mytable2' class='table'>
       <thead>
         <tr>
-          <th>DASH</th><th>DESCRIPTION</th>
+          <th></th><th>DASH</th><th>DESCRIPTION</th>
         </tr>
       </thead>
       <tbody>
@@ -62,14 +62,13 @@ include_once("top_bar.php");
           if(!empty($data)){
            $dash = dashlist($conn,$company);
           }
-          if(!empty($dash)){
           foreach($dash as $dashboard ){
             $dashname = $dashboard['dashname'];
-            echo"<tr><td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td>".$dashboard['description']."</td></tr>";
-          }
-        }else{
-          echo "<tr><td colspan='2'>NO DATA</td><tr>";
-        }
+            if($dashname != null ){
+            echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Details</a></td>
+            <td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td>".$dashboard['description']."</td></tr>";
+         }
+       }
         ?>
       </tbody>
     </table>
