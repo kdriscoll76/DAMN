@@ -65,7 +65,7 @@ include_once("top_bar.php");
           foreach($dash as $dashboard ){
             $dashname = $dashboard['dashname'];
             if($dashname != null ){
-            echo"<tr><td><a class='btn btn-success' href='info.php?record=".$value['record']."'>Details</a></td>
+            echo"<tr><td><a class='btn btn-success' href='dashinfo.php?record=".$dashboard['record']."'>Details</a></td>
             <td><a href='dashboard.php?dashname=$dashname'>$dashname</a></td><td>".$dashboard['description']."</td></tr>";
          }
        }

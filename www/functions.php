@@ -61,6 +61,18 @@ function dashlist($conn,$company){
  $conn->close();
 }
 ####################
+# Dashboard Info
+####################
+function dashinfo($conn,$company,$record){
+ $sql="SELECT * FROM `dashboards` WHERE record='".$record."' AND company='".$company."'";
+ $result = $conn->query($sql);
+ if ($result->num_rows > 0) {
+   $row = $result->fetch_assoc();
+   return $row;
+ }
+ $conn->close();
+}
+####################
 # Create Dashboard
 ####################
 function create_dash($data,$conn,$company,$organisation){
