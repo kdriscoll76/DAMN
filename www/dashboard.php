@@ -49,7 +49,6 @@ $boxes['total'] = $total ?:0;
 foreach( $filters as $boxname => $text ){
   $boxes[$boxname] = $$boxname ?:0;
 }
-$boxes['Home'] = '<a href="main.php"><i style="color:#000000;" class="glyphicon glyphicon-home"></i></a>';
 foreach($boxes as $key => $value){
  if($key != NULL ){
  if($key == 'error'){
@@ -61,12 +60,17 @@ foreach($boxes as $key => $value){
  }else{
    $status = 'btn-primary';
  }
-echo "<span class='col-xs-12 col-md-3'><button class='widget btn $status btn-lg  '><h2>".strtoupper($key)."</h2>
-       <p style='font-size:2em;'>$value</p>
+echo "<span class='col-xs-12 col-md-3'><button  class='widget btn $status btn-lg  '><h2>".strtoupper($key)."</h2>
+       <div style='font-size:2em;'>$value</div>
      </button></span>";
  }
 }
 ?>
+<span class='col-xs-12 col-md-3'>
+<a class='widget btn btn-primary btn-lg' href="http://www.kjdtoolbox.kjdhosting.com/main.php">
+<h2>HOME</h2>
+<i style="color:#000000;font-size:2em;" class="glyphicon glyphicon-home"></i></a>
+</span>
 </div>
 </div>
 <?php

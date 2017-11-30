@@ -33,10 +33,21 @@
     ##################################
     </b>
 
-     <i>Invoke-WebRequest -UseBasicParsing http://www.kjdtoolbox.kjdhosting.com/api `
-       -ContentType "application/json" -Method GET -Body "{"api":"&lt;api-key&gt",`
-       "systemname":"system2","message":"critical alert test"}"
-     </i>
+     <i>
+$hostname = $env:computername
+
+$data =  @{ 
+	systemname = $hostname
+	message = 'Test error'
+	api = 'your-api-key'
+} 
+
+$json = $data | ConvertTo-Json
+
+$response = Invoke-RestMethod -Uri "http://www.kjdtoolbox.kjdhosting.com/api/index.php"  -Method POST -Body  $json -ContentType 'application/json'
+
+echo $response
+</i>
 
     <b>
     ################################################
